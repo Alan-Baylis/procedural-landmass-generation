@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-public static class Noise  {
+public static class Noise
+{
     /// <summary>
     /// Generates a noise map
     /// </summary>

@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public static class MeshGenerator  {
-    
-    public static MeshData GenerateMeshFromHeighMap(float [,] heightMap, AnimationCurve heightCurve,float heightMultipler, int levelOfDetail)
+public static class MeshGenerator
+{
+
+    public static MeshData GenerateMeshFromHeighMap(float[,] heightMap, AnimationCurve _heightCurve, float heightMultipler, int levelOfDetail)
     {
+        AnimationCurve heightCurve = _heightCurve;
+
         int width = heightMap.GetLength(0);
         int height = heightMap.GetLength(1);
 
@@ -19,9 +20,9 @@ public static class MeshGenerator  {
         float topLeftX = (width - 1) / -2f;
         float topLeftZ = (height - 1) / 2f;
 
-        for(int y=0;y < height; y+=meshSimplificationIncrement)
+        for (int y = 0; y < height; y += meshSimplificationIncrement)
         {
-            for(int x = 0; x < width; x+=meshSimplificationIncrement)
+            for (int x = 0; x < width; x += meshSimplificationIncrement)
             {
                 meshData.vertices[vertexIndex] = new Vector3(topLeftX + x, heightCurve.Evaluate(heightMap[x, y]) * heightMultipler, topLeftZ - y);
                 meshData.uvs[vertexIndex] = new Vector2(x / (float)width, y / (float)height);
@@ -56,7 +57,7 @@ public class MeshData
     public Vector2[] uvs;
     private int triangleIndex = 0;
 
-    public MeshData(int width,int height)
+    public MeshData(int width, int height)
     {
         /* Total number of vertices in a mesh = width * height
          *                  width = 3
